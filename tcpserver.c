@@ -115,10 +115,11 @@ int main(void)
             //send the header
             int head = read << 16 | count & 0x00FF;
             count = count + 1;
-            A
-                head = htonl(head);
+            head = htonl(head);
             printf("Sending %d\n", head);
             bytes_sent = send(sock_connection, &head, 4, 0);
+	    //send the text
+	    bytes_sent = send(sock_connection, line, read,0);
          }
       }
       /* Send final EOF message */

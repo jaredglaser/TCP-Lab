@@ -90,11 +90,12 @@ int main(void)
    while (1)
    {
       receivedHeader = 0;
+      int count = 0;
       bytes_recd = recv(sock_client, &receivedHeader, 4, 0);
       if (bytes_recd > 0)
       {
          receivedHeader = ntohl(receivedHeader);
-         int count = (receivedHeader >> 16 & 0x00FF);
+         count = (receivedHeader >> 16 & 0x00FF);
          int seqNum = receivedHeader & 0x00FF;
          printf("\nThe response from server is:\n");
 
@@ -103,7 +104,22 @@ int main(void)
          {
             //break;
          }
+
       }
+      char line[count];
+      bytes_recd = recv(sock_client, &line, count, 0);
+      if (bytes_recd > 0)
+      {
+         printf("\nThe response from server is:\n");
+
+         printf("%s",line);
+         if (count == 0)
+         {
+            //break;
+         }
+
+      }
+
    }
    /* close the socket */
 
