@@ -9,7 +9,9 @@
 #include <sys/socket.h> /* for socket, connect, send, and recv */
 #include <netinet/in.h> /* for sockaddr_in */
 #include <unistd.h>     /* for close */
-
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #define STRING_SIZE 1024
 
 int main(void)
@@ -79,7 +81,7 @@ int main(void)
 
    //printf("Please input a sentence:\n");
    //scanf("%s", sentence);
-   strcpy(sentence, "test1.txt");
+   strcpy(sentence, "test2.txt");
    msg_len = strlen(sentence) + 1;
 
    /* send message */
@@ -87,36 +89,44 @@ int main(void)
    bytes_sent = send(sock_client, sentence, msg_len, 0);
 
    /* get response from server */
+   int fp = open("testoutput.txt",O_WRONLY|O_CREAT, 0777);
+   int n = 0;
    while (1)
    {
       receivedHeader = 0;
       int count = 0;
+      int seqNum = 0;
       bytes_recd = recv(sock_client, &receivedHeader, 4, 0);
       if (bytes_recd > 0)
       {
+	
          receivedHeader = ntohl(receivedHeader);
-         count = (receivedHeader >> 16 & 0x00FF);
-         int seqNum = receivedHeader & 0x00FF;
-         printf("\nThe response from server is:\n");
+         count = (receivedHeader >> 16 & 0x0000FFFF);
+         seqNum = receivedHeader & 0x0000FFFF;
+         //printf("\nThe response from server is:\n");
 
-         printf("Length:%d Count:%d Base:%d\n\n", count, seqNum, receivedHeader);
+         //printf("Length:%d Count:%d Base:%d\n\n", count, seqNum, receivedHeader);
+         printf("Packet %d recieved with %d data bytes\n",seqNum,4);
          if (count == 0)
          {
-            //break;
+	   //end of transmission packet
+	   printf("End of Transmission Packet with sequence number %d transmitted with %d data bytes\n",seqNum,4);
+	   exit(0);
          }
 
       }
-      char line[count];
+      char line[1024];
+      memset(&line,0,sizeof(line));
       bytes_recd = recv(sock_client, &line, count, 0);
       if (bytes_recd > 0)
       {
-         printf("\nThe response from server is:\n");
+	//printf("\nThe response from server is:\n");
 
-         printf("%s",line);
-         if (count == 0)
-         {
-            //break;
-         }
+        // printf("%s",line);
+	printf("Packet %d recieved with %d data bytes\n",seqNum,count);
+	 if(write(fp,line,strlen(line))<0){
+	   printf("error with writing");
+	 }
 
       }
 

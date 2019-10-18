@@ -105,24 +105,33 @@ int main(void)
       char *line = NULL;
       size_t len = 0;
       ssize_t read;
-
+      int count = 1;
       fp = fopen(sentence, "r");
       if (fp != NULL)
       {
-         int count = 1;
-         while ((read = getline(&line, &len, fp)) != -1)
+         
+         while ((read = getline(&line, &len, fp)) > 0)
          {
             //send the header
-            int head = read << 16 | count & 0x00FF;
+	   int head = strlen(line) << 16 | count & 0x0000FFFF;
             count = count + 1;
             head = htonl(head);
-            printf("Sending %d\n", head);
+	    // printf("Sending %d\n", head);
+	    printf("Packet %d transmitted with %d data bytes\n",count,4);
             bytes_sent = send(sock_connection, &head, 4, 0);
 	    //send the text
-	    bytes_sent = send(sock_connection, line, read,0);
+	    //strcpy(line,"Alice is dumb and this project is getting annoying\n");
+	    char buffer[strlen(line)];
+	    memcpy(buffer,line,strlen(line));
+	    printf("Packet %d transmitted with %ld data bytes\n",count,read);
+	    bytes_sent = send(sock_connection, buffer, read,0);
          }
       }
       /* Send final EOF message */
+      int head = 0 << 16 | count & 0x0000FFFF;
+      printf("End of Transmission Packet with sequence number %d receieved with %d data bytes\n",count,4);
+      bytes_sent = send(sock_connection,&head,4,0);
+      
    }
 
    /* close the socket */
