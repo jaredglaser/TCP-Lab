@@ -24,7 +24,7 @@ int main(void)
    struct hostent *server_hp;                       /* Structure to store server's IP
                                         address */
    char server_hostname[STRING_SIZE] = "localhost"; /* Server's hostname */
-   unsigned short server_port = 64442;              /* Port number used by server (remote port) */
+   unsigned short server_port = 64441;              /* Port number used by server (remote port) */
 
    char sentence[STRING_SIZE]; /* send message */
    int receivedHeader;         /* received header */
@@ -106,13 +106,15 @@ int main(void)
          //printf("\nThe response from server is:\n");
 
          //printf("Length:%d Count:%d Base:%d\n\n", count, seqNum, receivedHeader);
-         printf("Packet %d recieved with %d data bytes\n",seqNum,4);
          if (count == 0)
          {
 	   //end of transmission packet
-	   printf("End of Transmission Packet with sequence number %d transmitted with %d data bytes\n",seqNum,4);
+	   printf("End of Transmission Packet with sequence number %d recieved with %d data bytes\n",seqNum,4);
 	   exit(0);
          }
+         else{
+	   printf("Packet %d recieved with %d data bytes\n",seqNum,count);
+         }   
 
       }
       char line[1024];

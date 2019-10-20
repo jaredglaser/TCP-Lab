@@ -16,7 +16,7 @@
    incoming requests from clients. You should change this to a different
    number to prevent conflicts with others in the class. */
 
-#define SERV_TCP_PORT 64442
+#define SERV_TCP_PORT 64441
 
 int main(void)
 {
@@ -105,7 +105,7 @@ int main(void)
       char *line = NULL;
       size_t len = 0;
       ssize_t read;
-      int count = 1;
+      int count = 0;
       fp = fopen(sentence, "r");
       if (fp != NULL)
       {
@@ -113,8 +113,9 @@ int main(void)
          while ((read = getline(&line, &len, fp)) > 0)
          {
             //send the header
+	   count = count + 1;
 	   int head = strlen(line) << 16 | count & 0x0000FFFF;
-            count = count + 1;
+            
             head = htonl(head);
 	    // printf("Sending %d\n", head);
 	    printf("Packet %d transmitted with %d data bytes\n",count,4);
@@ -128,8 +129,10 @@ int main(void)
          }
       }
       /* Send final EOF message */
-      int head = 0 << 16 | count & 0x0000FFFF;
-      printf("End of Transmission Packet with sequence number %d receieved with %d data bytes\n",count,4);
+      count = count + 1;
+      int head = 0x0000FFFF & count;
+      head = htonl(head);
+      printf("End of Transmission Packet with sequence number %d transmitted with %d data bytes\n",count,4);
       bytes_sent = send(sock_connection,&head,4,0);
       
    }
