@@ -99,41 +99,27 @@ int main(void)
       bytes_recd = recv(sock_client, &receivedHeader, 4, 0);
       if (bytes_recd > 0)
       {
-	
          receivedHeader = ntohl(receivedHeader);
          count = (receivedHeader >> 16 & 0x0000FFFF);
          seqNum = receivedHeader & 0x0000FFFF;
-         //printf("\nThe response from server is:\n");
-
-         //printf("Length:%d Count:%d Base:%d\n\n", count, seqNum, receivedHeader);
          if (count == 0)
          {
 	   //end of transmission packet
-	   printf("End of Transmission Packet with sequence number %d recieved with %d data bytes\n",seqNum,4);
+	   printf("End of Transmission Packet with sequence number %d recieved with %d data bytes\n",seqNum,count);
 	   exit(0);
          }
-         else{
-	   printf("Packet %d recieved with %d data bytes\n",seqNum,count);
-         }   
-
       }
       char line[1024];
       memset(&line,0,sizeof(line));
       bytes_recd = recv(sock_client, &line, count, 0);
       if (bytes_recd > 0)
       {
-	//printf("\nThe response from server is:\n");
-
-        // printf("%s",line);
-	printf("Packet %d recieved with %d data bytes\n",seqNum,count);
+         printf("Packet %d recieved with %d data bytes\n",seqNum,count);
 	 if(write(fp,line,strlen(line))<0){
 	   printf("error with writing");
 	 }
-
       }
-
    }
    /* close the socket */
-
    close(sock_client);
 }

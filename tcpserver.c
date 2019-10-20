@@ -117,11 +117,9 @@ int main(void)
 	   int head = strlen(line) << 16 | count & 0x0000FFFF;
             
             head = htonl(head);
-	    // printf("Sending %d\n", head);
 	    printf("Packet %d transmitted with %d data bytes\n",count,4);
             bytes_sent = send(sock_connection, &head, 4, 0);
 	    //send the text
-	    //strcpy(line,"Alice is dumb and this project is getting annoying\n");
 	    char buffer[strlen(line)];
 	    memcpy(buffer,line,strlen(line));
 	    printf("Packet %d transmitted with %ld data bytes\n",count,read);
@@ -132,7 +130,7 @@ int main(void)
       count = count + 1;
       int head = 0x0000FFFF & count;
       head = htonl(head);
-      printf("End of Transmission Packet with sequence number %d transmitted with %d data bytes\n",count,4);
+      printf("End of Transmission Packet with sequence number %d transmitted with %d data bytes\n",count,0);
       bytes_sent = send(sock_connection,&head,4,0);
       
    }
