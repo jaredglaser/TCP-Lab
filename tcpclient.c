@@ -24,7 +24,7 @@ int main(void)
    struct hostent *server_hp;                       /* Structure to store server's IP
                                         address */
    char server_hostname[STRING_SIZE] = "localhost"; /* Server's hostname */
-   unsigned short server_port = 64441;              /* Port number used by server (remote port) */
+   unsigned short server_port = 60441;              /* Port number used by server (remote port) */
 
    char sentence[STRING_SIZE]; /* send message */
    int receivedHeader;         /* received header */
@@ -79,9 +79,9 @@ int main(void)
 
    /* user interface */
 
-   //printf("Please input a sentence:\n");
-   //scanf("%s", sentence);
-   strcpy(sentence, "test2.txt");
+   printf("Please input the file you would like to read:\n");
+   scanf("%s", sentence);
+   //strcpy(sentence, "test2.txt");
    msg_len = strlen(sentence) + 1;
 
    /* send message */
@@ -89,35 +89,39 @@ int main(void)
    bytes_sent = send(sock_client, sentence, msg_len, 0);
 
    /* get response from server */
-   int fp = open("testoutput.txt",O_WRONLY|O_CREAT, 0777);
+   int file = open("testoutput.txt",O_WRONLY|O_CREAT, 0777);	//create a file to write to
    int n = 0;
+   int totalbytes = 0;
    while (1)
    {
       receivedHeader = 0;
-      int count = 0;
-      int seqNum = 0;
+      unsigned short int count = 0;
+      unsigned short int seqNum = 0;
       bytes_recd = recv(sock_client, &receivedHeader, 4, 0);
       if (bytes_recd > 0)
       {
-         receivedHeader = ntohl(receivedHeader);
-         count = (receivedHeader >> 16 & 0x0000FFFF);
-         seqNum = receivedHeader & 0x0000FFFF;
-         if (count == 0)
+         receivedHeader = ntohl(receivedHeader);		//recieve header
+         count = (receivedHeader >> 16 & 0x0000FFFF);	//count will be the first 2 bytes of data recieved in the header
+	 totalbytes += count; //add up all the bytes recieved 
+         seqNum = receivedHeader & 0x0000FFFF;			//seqNum will be the last 2 bytes of data recieved in the header
+         if (count == 0)		//the eot packet will have a count of 0
          {
-	   //end of transmission packet
-	   printf("End of Transmission Packet with sequence number %d recieved with %d data bytes\n",seqNum,count);
-	   exit(0);
+			//end of transmission packet
+			printf("End of Transmission Packet with sequence number %d recieved with %d data bytes\n",seqNum,count);
+			printf("Total number of data packets recieved: %d \n",seqNum-1);
+			printf("Total number of data bytes receieved: %d \n",totalbytes);
+			exit(0);
          }
       }
-      char line[1024];
+      char line[1024];	//make a realy big buffer so we don't read out of mem
       memset(&line,0,sizeof(line));
-      bytes_recd = recv(sock_client, &line, count, 0);
+      bytes_recd = recv(sock_client, &line, count, 0);	//recieve data based on what info we got from the header
       if (bytes_recd > 0)
       {
-         printf("Packet %d recieved with %d data bytes\n",seqNum,count);
-	 if(write(fp,line,strlen(line))<0){
-	   printf("error with writing");
-	 }
+        printf("Packet %d recieved with %d data bytes\n",seqNum,count);
+		if(write(file,line,strlen(line))<0){	//write to a file
+			printf("error with writing");
+		}
       }
    }
    /* close the socket */

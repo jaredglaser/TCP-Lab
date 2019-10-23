@@ -16,7 +16,7 @@
    incoming requests from clients. You should change this to a different
    number to prevent conflicts with others in the class. */
 
-#define SERV_TCP_PORT 64441
+#define SERV_TCP_PORT 60441
 
 int main(void)
 {
@@ -105,33 +105,36 @@ int main(void)
       char *line = NULL;
       size_t len = 0;
       ssize_t read;
-      int count = 0;
-      fp = fopen(sentence, "r");
+      int seqNum = 0;
+      int totalbytes = 0;
+      fp = fopen(sentence, "r");	//read from the file asked for by client
       if (fp != NULL)
       {
          
          while ((read = getline(&line, &len, fp)) > 0)
          {
             //send the header
-	   count = count + 1;
-	   int head = strlen(line) << 16 | count & 0x0000FFFF;
-            
+			seqNum = seqNum + 1;
+			int head = strlen(line) << 16 | seqNum & 0x0000FFFF;		//header first 2 bits will be count and next 2 will be sequence number
+                         totalbytes += strlen(line); //add up all the bytes to display at the end
             head = htonl(head);
-	    printf("Packet %d transmitted with %d data bytes\n",count,4);
-            bytes_sent = send(sock_connection, &head, 4, 0);
-	    //send the text
-	    char buffer[strlen(line)];
-	    memcpy(buffer,line,strlen(line));
-	    printf("Packet %d transmitted with %ld data bytes\n",count,read);
-	    bytes_sent = send(sock_connection, buffer, read,0);
+            bytes_sent = send(sock_connection, &head, 4, 0);	//send the header
+			
+			//send the text
+			char buffer[strlen(line)];
+			memcpy(buffer,line,strlen(line)); //clear out the buffer
+			printf("Packet %d transmitted with %ld data bytes\n",seqNum,read);
+			bytes_sent = send(sock_connection, buffer, read,0);	//send the data
          }
       }
-      /* Send final EOF message */
-      count = count + 1;
-      int head = 0x0000FFFF & count;
+      /* Send final EOT message */
+      seqNum = seqNum + 1;
+      int head = 0x0000FFFF & seqNum;	//just transmit the count since final message has no data everything else 0
       head = htonl(head);
-      printf("End of Transmission Packet with sequence number %d transmitted with %d data bytes\n",count,0);
-      bytes_sent = send(sock_connection,&head,4,0);
+      printf("End of Transmission Packet with sequence number %d transmitted with %d data bytes\n",seqNum,0);
+      bytes_sent = send(sock_connection,&head,4,0);	//send eot
+      printf("Total number of data packets transmitted: %d \n",seqNum-1);
+      printf("Total number of data bytes transmitted: %d \n", totalbytes);
       
    }
 

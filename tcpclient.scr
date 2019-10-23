@@ -1,0 +1,200 @@
+Script started on 2019-10-23 13:14:19-0400
+jmglaser@cisc450:~/Networks$ ls -l
+total 52
+-rw-rw-r-- 1 jmglaser jmglaser   195 Oct 23 12:58 Makefile
+-rw-rw-r-- 1 jmglaser jmglaser   349 Oct 16 19:03 Makefile~
+-rwxrwxr-x 1 jmglaser jmglaser 17952 Oct 23 13:14 tcpclient
+-rw-rw-r-- 1 jmglaser jmglaser  4641 Oct 23 13:10 tcpclient.c
+-rw-rw-r-- 1 jmglaser jmglaser  4404 Oct 23 12:41 tcpclient.c~
+-rw-rw-r-- 1 jmglaser jmglaser     0 Oct 23 13:14 tcpclient.scr
+-rwxrwxr-x 1 jmglaser jmglaser 18040 Oct 23 13:14 tcpserver
+-rw-rw-r-- 1 jmglaser jmglaser  5154 Oct 23 13:10 tcpserver.c
+-rw-rw-r-- 1 jmglaser jmglaser  4927 Oct 23 12:42 tcpserver.c~
+-rw-rw-r-- 1 jmglaser jmglaser     0 Oct 23 13:14 tcpserver.scr
+-rw-rw-r-- 1 jmglaser jmglaser  4340 Oct  8 16:04 test1.txt
+-rw-rw-r-- 1 jmglaser jmglaser  9139 Oct  8 16:05 test2.txt
+jmglaser@cisc450:~/Networks$ ,[K./tcpclient 
+Please input the file you would like to read:
+test2.txt
+Packet 1 recieved with 49 data bytes
+Packet 2 recieved with 2 data bytes
+Packet 3 recieved with 41 data bytes
+Packet 4 recieved with 2 data bytes
+Packet 5 recieved with 51 data bytes
+Packet 6 recieved with 2 data bytes
+Packet 7 recieved with 2 data bytes
+Packet 8 recieved with 2 data bytes
+Packet 9 recieved with 39 data bytes
+Packet 10 recieved with 2 data bytes
+Packet 11 recieved with 44 data bytes
+Packet 12 recieved with 2 data bytes
+Packet 13 recieved with 2 data bytes
+Packet 14 recieved with 79 data bytes
+Packet 15 recieved with 53 data bytes
+Packet 16 recieved with 60 data bytes
+Packet 17 recieved with 79 data bytes
+Packet 18 recieved with 35 data bytes
+Packet 19 recieved with 2 data bytes
+Packet 20 recieved with 77 data bytes
+Packet 21 recieved with 52 data bytes
+Packet 22 recieved with 79 data bytes
+Packet 23 recieved with 49 data bytes
+Packet 24 recieved with 41 data bytes
+Packet 25 recieved with 2 data bytes
+Packet 26 recieved with 63 data bytes
+Packet 27 recieved with 72 data bytes
+Packet 28 recieved with 80 data bytes
+Packet 29 recieved with 77 data bytes
+Packet 30 recieved with 28 data bytes
+Packet 31 recieved with 72 data bytes
+Packet 32 recieved with 74 data bytes
+Packet 33 recieved with 79 data bytes
+Packet 34 recieved with 77 data bytes
+Packet 35 recieved with 79 data bytes
+Packet 36 recieved with 47 data bytes
+Packet 37 recieved with 2 data bytes
+Packet 38 recieved with 58 data bytes
+Packet 39 recieved with 56 data bytes
+Packet 40 recieved with 2 data bytes
+Packet 41 recieved with 80 data bytes
+Packet 42 recieved with 80 data bytes
+Packet 43 recieved with 34 data bytes
+Packet 44 recieved with 32 data bytes
+Packet 45 recieved with 2 data bytes
+Packet 46 recieved with 81 data bytes
+Packet 47 recieved with 80 data bytes
+Packet 48 recieved with 79 data bytes
+Packet 49 recieved with 80 data bytes
+Packet 50 recieved with 79 data bytes
+Packet 51 recieved with 80 data bytes
+Packet 52 recieved with 76 data bytes
+Packet 53 recieved with 77 data bytes
+Packet 54 recieved with 73 data bytes
+Packet 55 recieved with 15 data bytes
+Packet 56 recieved with 2 data bytes
+Packet 57 recieved with 76 data bytes
+Packet 58 recieved with 77 data bytes
+Packet 59 recieved with 73 data bytes
+Packet 60 recieved with 38 data bytes
+Packet 61 recieved with 2 data bytes
+Packet 62 recieved with 78 data bytes
+Packet 63 recieved with 76 data bytes
+Packet 64 recieved with 78 data bytes
+Packet 65 recieved with 78 data bytes
+Packet 66 recieved with 68 data bytes
+Packet 67 recieved with 77 data bytes
+Packet 68 recieved with 56 data bytes
+Packet 69 recieved with 65 data bytes
+Packet 70 recieved with 65 data bytes
+Packet 71 recieved with 64 data bytes
+Packet 72 recieved with 7 data bytes
+Packet 73 recieved with 2 data bytes
+Packet 74 recieved with 74 data bytes
+Packet 75 recieved with 73 data bytes
+Packet 76 recieved with 81 data bytes
+Packet 77 recieved with 75 data bytes
+Packet 78 recieved with 73 data bytes
+Packet 79 recieved with 64 data bytes
+Packet 80 recieved with 60 data bytes
+Packet 81 recieved with 81 data bytes
+Packet 82 recieved with 67 data bytes
+Packet 83 recieved with 46 data bytes
+Packet 84 recieved with 2 data bytes
+Packet 85 recieved with 66 data bytes
+Packet 86 recieved with 61 data bytes
+Packet 87 recieved with 61 data bytes
+Packet 88 recieved with 66 data bytes
+Packet 89 recieved with 66 data bytes
+Packet 90 recieved with 63 data bytes
+Packet 91 recieved with 62 data bytes
+Packet 92 recieved with 67 data bytes
+Packet 93 recieved with 61 data bytes
+Packet 94 recieved with 59 data bytes
+Packet 95 recieved with 64 data bytes
+Packet 96 recieved with 63 data bytes
+Packet 97 recieved with 61 data bytes
+Packet 98 recieved with 63 data bytes
+Packet 99 recieved with 64 data bytes
+Packet 100 recieved with 47 data bytes
+Packet 101 recieved with 2 data bytes
+Packet 102 recieved with 81 data bytes
+Packet 103 recieved with 81 data bytes
+Packet 104 recieved with 81 data bytes
+Packet 105 recieved with 81 data bytes
+Packet 106 recieved with 81 data bytes
+Packet 107 recieved with 81 data bytes
+Packet 108 recieved with 81 data bytes
+Packet 109 recieved with 39 data bytes
+Packet 110 recieved with 2 data bytes
+Packet 111 recieved with 66 data bytes
+Packet 112 recieved with 62 data bytes
+Packet 113 recieved with 61 data bytes
+Packet 114 recieved with 46 data bytes
+Packet 115 recieved with 2 data bytes
+Packet 116 recieved with 67 data bytes
+Packet 117 recieved with 64 data bytes
+Packet 118 recieved with 65 data bytes
+Packet 119 recieved with 67 data bytes
+Packet 120 recieved with 65 data bytes
+Packet 121 recieved with 63 data bytes
+Packet 122 recieved with 64 data bytes
+Packet 123 recieved with 66 data bytes
+Packet 124 recieved with 50 data bytes
+Packet 125 recieved with 2 data bytes
+Packet 126 recieved with 60 data bytes
+Packet 127 recieved with 63 data bytes
+Packet 128 recieved with 66 data bytes
+Packet 129 recieved with 63 data bytes
+Packet 130 recieved with 66 data bytes
+Packet 131 recieved with 65 data bytes
+Packet 132 recieved with 62 data bytes
+Packet 133 recieved with 55 data bytes
+Packet 134 recieved with 63 data bytes
+Packet 135 recieved with 65 data bytes
+Packet 136 recieved with 66 data bytes
+Packet 137 recieved with 39 data bytes
+Packet 138 recieved with 2 data bytes
+Packet 139 recieved with 67 data bytes
+Packet 140 recieved with 67 data bytes
+Packet 141 recieved with 64 data bytes
+Packet 142 recieved with 64 data bytes
+Packet 143 recieved with 64 data bytes
+Packet 144 recieved with 58 data bytes
+Packet 145 recieved with 45 data bytes
+Packet 146 recieved with 2 data bytes
+Packet 147 recieved with 61 data bytes
+Packet 148 recieved with 58 data bytes
+Packet 149 recieved with 60 data bytes
+Packet 150 recieved with 67 data bytes
+Packet 151 recieved with 65 data bytes
+Packet 152 recieved with 62 data bytes
+Packet 153 recieved with 63 data bytes
+Packet 154 recieved with 65 data bytes
+Packet 155 recieved with 65 data bytes
+Packet 156 recieved with 62 data bytes
+Packet 157 recieved with 62 data bytes
+Packet 158 recieved with 8 data bytes
+Packet 159 recieved with 2 data bytes
+Packet 160 recieved with 65 data bytes
+Packet 161 recieved with 65 data bytes
+Packet 162 recieved with 61 data bytes
+Packet 163 recieved with 65 data bytes
+Packet 164 recieved with 9 data bytes
+Packet 165 recieved with 2 data bytes
+Packet 166 recieved with 56 data bytes
+Packet 167 recieved with 2 data bytes
+Packet 168 recieved with 52 data bytes
+Packet 169 recieved with 2 data bytes
+Packet 170 recieved with 56 data bytes
+Packet 171 recieved with 2 data bytes
+Packet 172 recieved with 61 data bytes
+Packet 173 recieved with 19 data bytes
+Packet 174 recieved with 2 data bytes
+End of Transmission Packet with sequence number 175 recieved with 0 data bytes
+Total number of data packets recieved: 174 
+Total number of data bytes receieved: 9139 
+jmglaser@cisc450:~/Networks$ diff test2.txt testoutput.txt 
+jmglaser@cisc450:~/Networks$ exit
+exit
+
+Script done on 2019-10-23 13:15:41-0400
